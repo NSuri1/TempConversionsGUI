@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,13 +30,17 @@ public class ConversionsGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
+        jTextField1 = new javax.swing.JTextField();
         celciusTextField = new javax.swing.JTextField();
         celciusLabel = new javax.swing.JLabel();
         fahrenheitLabel = new javax.swing.JLabel();
         convertButton = new javax.swing.JButton();
-        fahrenheitConversion = new javax.swing.JLabel();
+        fahrenheitTextField = new javax.swing.JTextField();
+        resetButton = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Temperature Conversions");
@@ -51,31 +58,40 @@ public class ConversionsGUI extends javax.swing.JFrame {
             }
         });
 
-        fahrenheitConversion.setText("Tap \"Convert\" to Calculate");
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(celciusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fahrenheitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(celciusTextField)
-                    .addComponent(fahrenheitConversion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
-                .addComponent(convertButton)
-                .addContainerGap(129, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(convertButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resetButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(celciusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fahrenheitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(celciusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fahrenheitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {celciusLabel, fahrenheitLabel});
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {celciusTextField, fahrenheitConversion});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {celciusTextField, fahrenheitTextField});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {convertButton, resetButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,11 +101,13 @@ public class ConversionsGUI extends javax.swing.JFrame {
                     .addComponent(celciusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(celciusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fahrenheitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(fahrenheitConversion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(fahrenheitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addComponent(convertButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(convertButton)
+                    .addComponent(resetButton))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -101,15 +119,28 @@ public class ConversionsGUI extends javax.swing.JFrame {
     private void convertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convertButtonActionPerformed
         
         try{
-            double celcius = Double.parseDouble(celciusTextField.getText());
-            double conversion= (celcius * 9 / 5) + 32; 
-            fahrenheitConversion.setText(Double.toString(conversion));
+            if(!celciusTextField.getText().isEmpty()){
+                double celcius = Double.parseDouble(celciusTextField.getText());
+                double conversion= (celcius * 9 / 5) + 32; 
+                fahrenheitTextField.setText(Double.toString(Math.round(conversion)));
+            }
+            else{
+                double fahrenheit = Double.parseDouble(fahrenheitTextField.getText());
+                double conversion = (fahrenheit - 32) * (5.0 / 9.0);
+                celciusTextField.setText(Double.toString(Math.round(conversion)));
+            }
+            
         }
         catch(Exception e){
-            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, e.toString());
         }
         
     }//GEN-LAST:event_convertButtonActionPerformed
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        fahrenheitTextField.setText("");
+        celciusTextField.setText("");
+    }//GEN-LAST:event_resetButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,8 +181,10 @@ public class ConversionsGUI extends javax.swing.JFrame {
     private javax.swing.JLabel celciusLabel;
     private javax.swing.JTextField celciusTextField;
     private javax.swing.JButton convertButton;
-    private javax.swing.JLabel fahrenheitConversion;
     private javax.swing.JLabel fahrenheitLabel;
+    private javax.swing.JTextField fahrenheitTextField;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JButton resetButton;
     // End of variables declaration//GEN-END:variables
 }
