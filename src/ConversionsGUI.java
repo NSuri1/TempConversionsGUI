@@ -99,9 +99,16 @@ public class ConversionsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void convertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convertButtonActionPerformed
-        double celcius = Double.parseDouble(celciusTextField.getText());
-        double conversion= (celcius * 9 / 5) + 32; 
-        fahrenheitConversion.setText(Double.toString(conversion));
+        
+        try{
+            double celcius = Double.parseDouble(celciusTextField.getText());
+            double conversion= (celcius * 9 / 5) + 32; 
+            fahrenheitConversion.setText(Double.toString(conversion));
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        
     }//GEN-LAST:event_convertButtonActionPerformed
 
     /**
