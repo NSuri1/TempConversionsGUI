@@ -1,4 +1,5 @@
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /*
@@ -45,6 +46,12 @@ public class ConversionsGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Temperature Conversions");
 
+        celciusTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                celciusTextFieldKeyPressed(evt);
+            }
+        });
+
         celciusLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         celciusLabel.setText("Celcius:");
         celciusLabel.setToolTipText("");
@@ -55,6 +62,12 @@ public class ConversionsGUI extends javax.swing.JFrame {
         convertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 convertButtonActionPerformed(evt);
+            }
+        });
+
+        fahrenheitTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fahrenheitTextFieldKeyPressed(evt);
             }
         });
 
@@ -120,14 +133,10 @@ public class ConversionsGUI extends javax.swing.JFrame {
         
         try{
             if(!celciusTextField.getText().isEmpty()){
-                double celcius = Double.parseDouble(celciusTextField.getText());
-                double conversion= (celcius * 9 / 5) + 32; 
-                fahrenheitTextField.setText(Double.toString(Math.round(conversion)));
+                convertCelcius();
             }
             else{
-                double fahrenheit = Double.parseDouble(fahrenheitTextField.getText());
-                double conversion = (fahrenheit - 32) * (5.0 / 9.0);
-                celciusTextField.setText(Double.toString(Math.round(conversion)));
+                convertFahrenheit();
             }
             
         }
@@ -141,6 +150,20 @@ public class ConversionsGUI extends javax.swing.JFrame {
         fahrenheitTextField.setText("");
         celciusTextField.setText("");
     }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void celciusTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_celciusTextFieldKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            // Enter was pressed. Your code goes here.
+            convertCelcius();
+        }
+    }//GEN-LAST:event_celciusTextFieldKeyPressed
+
+    private void fahrenheitTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fahrenheitTextFieldKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            // Enter was pressed. Your code goes here.
+            convertFahrenheit();
+        }
+    }//GEN-LAST:event_fahrenheitTextFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -175,6 +198,18 @@ public class ConversionsGUI extends javax.swing.JFrame {
                 new ConversionsGUI().setVisible(true);
             }
         });
+    }
+    
+    private void convertCelcius(){
+        double celcius = Double.parseDouble(celciusTextField.getText());
+        double conversion= (celcius * 9 / 5) + 32; 
+        fahrenheitTextField.setText(Double.toString(Math.round(conversion)));
+    }
+    
+    private void convertFahrenheit(){
+        double fahrenheit = Double.parseDouble(fahrenheitTextField.getText());
+        double conversion = (fahrenheit - 32) * (5.0 / 9.0);
+        celciusTextField.setText(Double.toString(Math.round(conversion)));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -87,6 +87,9 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="celciusTextField">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="celciusTextFieldKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="celciusLabel">
       <Properties>
@@ -109,6 +112,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="fahrenheitTextField">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fahrenheitTextFieldKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="resetButton">
       <Properties>
