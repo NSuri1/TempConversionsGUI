@@ -30,18 +30,12 @@ public class ConversionsGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
-        jTextField1 = new javax.swing.JTextField();
         celciusTextField = new javax.swing.JTextField();
         celciusLabel = new javax.swing.JLabel();
         fahrenheitLabel = new javax.swing.JLabel();
         convertButton = new javax.swing.JButton();
         fahrenheitTextField = new javax.swing.JTextField();
         resetButton = new javax.swing.JButton();
-
-        jToolBar1.setRollover(true);
-
-        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Temperature Conversions");
@@ -218,8 +212,6 @@ public class ConversionsGUI extends javax.swing.JFrame {
     private javax.swing.JButton convertButton;
     private javax.swing.JLabel fahrenheitLabel;
     private javax.swing.JTextField fahrenheitTextField;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton resetButton;
     // End of variables declaration//GEN-END:variables
 }
